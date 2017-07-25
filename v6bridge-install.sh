@@ -6,6 +6,6 @@ curl -sSL --retry 5 https://github.com/containernetworking/plugins/releases/down
     tar -C /opt/cni/bin -xz
 
 # Install .conf file
-curl --retry 5 https://github.com/pmichali/k8s-tools/blob/master/10-bridge.conf > /etc/cni/net.d/
+curl --retry 5 https://github.com/pmichali/k8s-tools/blob/master/10-bridge.conf > /etc/cni/net.d/10-bridge.conf
 
 
