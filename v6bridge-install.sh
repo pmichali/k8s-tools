@@ -6,7 +6,7 @@ curl -sSL --retry 5 https://github.com/containernetworking/plugins/releases/down
     tar -C /opt/cni/bin -xz
 
 # Install .conf file
-curl --retry 5 https://github.com/pmichali/k8s-tools/blob/master/10-bridge.conf > /etc/cni/net.d/10-bridge.conf
+curl --retry 5 https://raw.githubusercontent.com/pmichali/k8s-tools/master/10-bridge.conf > /etc/cni/net.d/10-bridge.conf
 
 # Enable IPv6
 sysctl -w net.ipv6.conf.all.disable_ipv6=0
