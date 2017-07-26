@@ -1,0 +1,39 @@
+# This manifest installs the updated bridge/host-local plugins
+# and config file, and enables IPv6 for nodes.
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: v6bridge-install
+  namespace: kube-system
+  labels:
+    k8s-app: v6bridge-install
+spec:
+  template:
+    metadata:
+      labels:
+        k8s-app: v6bridge-install
+    spec:
+      hostNetwork: true
+      containers:
+        # This container installs the cni binaries
+        # and CNI network config file on each node.
+        - name: v6bridge-install
+          image: pmichali/cni:v0.6
+          command: ["/v6bridge-install.sh"]
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - mountPath: /opt/cni/bin
+              name: cni-bin-dir
+            - mountPath: /etc/cni/net.d
+              name: cni-net-dir
+      volumes:
+        # Used to install CNI.
+        - name: cni-bin-dir
+          hostPath:
+            path: /opt/cni/bin
+        - name: cni-net-dir
+          hostPath:
+            path: /etc/cni/net.d
+
+---
